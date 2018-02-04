@@ -65,7 +65,7 @@ namespace VsSolutionRenamer.Business.SolutionParser.Transactions
                                         project[project.Count - 1].projectSection.Add(new Entities.Models.Files.Solution.ProjectSection
                                         {
                                             isEndOfProjectSection = true,                                            
-                                            filename = Regex.Replace(line, @"\t|\n|\r", "")
+                                            filename = line
                                         });
 
                                     }
@@ -75,8 +75,8 @@ namespace VsSolutionRenamer.Business.SolutionParser.Transactions
                                         var projectSelectionSplit = line.Split('=');
                                         project[project.Count - 1].projectSection.Add(new Entities.Models.Files.Solution.ProjectSection
                                         {
-                                            filename = projectSelectionSplit[0].Trim() ?? "",
-                                            equalsFilename = projectSelectionSplit[1].Trim() ?? ""
+                                            filename = projectSelectionSplit[0] ?? "",
+                                            equalsFilename = projectSelectionSplit[1] ?? ""
                                         });
                                         Console.WriteLine(line);
                                     }
@@ -102,6 +102,7 @@ namespace VsSolutionRenamer.Business.SolutionParser.Transactions
                                     {
                                         assignedGuid = splitProjectByEqualSign[0],
                                         projectName = splitPostEqualsByComma[0].Trim(),
+                                        // TRIM REQUIRED FOR FINDING PROPER FILENAME
                                         projectLocation = splitPostEqualsByComma[1].Trim(),
                                         projectGuid = splitPostEqualsByComma[2].Trim(),
                                         projectData = line,
@@ -114,7 +115,7 @@ namespace VsSolutionRenamer.Business.SolutionParser.Transactions
                         else
                         {
                             // CAPTURING CLOSING DELIMETER
-                            project[project.Count - 1].projectDataEnd = Regex.Replace(line, @"\t|\n|\r", "");
+                            project[project.Count - 1].projectDataEnd = line;
                         }
                     }
                     else

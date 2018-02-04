@@ -78,7 +78,7 @@ namespace VsSolutionRenamer.Tests.SolutionReader
                     {
                         solution.project[i].updatedProjectName = solution.project[i].projectName.Replace(solution.solutionName, updatedName);
                         solution.project[i].updatedProjectLocation = solution.project[i].projectLocation.Replace(solution.solutionName, updatedName);
-                        solution.project[i].updatedProjectData = $"{solution.project[i].assignedGuid} = \"{solution.project[i].updatedProjectName}\", \"{solution.project[i].updatedProjectLocation}\", \"{solution.project[i].projectGuid}\"\r\n{solution.project[i].projectDataEnd}";
+                        solution.project[i].updatedProjectData = $"{solution.project[i].assignedGuid.Trim()} = \"{solution.project[i].updatedProjectName}\", \"{solution.project[i].updatedProjectLocation}\", \"{solution.project[i].projectGuid}\"\r\n{solution.project[i].projectDataEnd}";
                     }
                 }
 
@@ -93,7 +93,7 @@ namespace VsSolutionRenamer.Tests.SolutionReader
                     {
                         // Output of Virtual Folder section
                         if (!projectString.doesFolderExist && projectString.projectSection == null)
-                        {
+                        {                           
                             solutionOutput.WriteLine($"{projectString.projectData}\r\n{projectString.projectDataEnd.TrimEnd()}");
                         }
                         // Output of Virtual Folder section with imported files
@@ -105,7 +105,7 @@ namespace VsSolutionRenamer.Tests.SolutionReader
                                 // Checking for end of project section
                                 if (!projectSectionString.isEndOfProjectSection)
                                 {
-                                    solutionOutput.WriteLine($"{projectSectionString.filename} = {projectSectionString.equalsFilename}");
+                                    solutionOutput.WriteLine($"{projectSectionString.filename}={projectSectionString.equalsFilename}");
                                 }
                                 else
                                 {
@@ -114,7 +114,10 @@ namespace VsSolutionRenamer.Tests.SolutionReader
                             }
                             solutionOutput.WriteLine($"{projectString.projectDataEnd}");
                         }
-                        solutionOutput.WriteLine(projectString.updatedProjectData);
+                        else if (projectString.doesFolderExist && projectString.projectSection == null)
+                        {
+                            solutionOutput.WriteLine($"{projectString.updatedProjectData}");
+                        }
                     }
                     foreach (var globalString in solution.global)
                     {
