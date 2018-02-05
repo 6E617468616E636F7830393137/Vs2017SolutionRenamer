@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-
-namespace VsSolutionRenamer.Business.SolutionParser
+﻿namespace VsSolutionRenamer.Business.SolutionParser
 {
     public class Process
     {
@@ -16,6 +13,10 @@ namespace VsSolutionRenamer.Business.SolutionParser
         public Entities.Models.Files.Solution.Solution Execute(string source)
         {
             return _process.Execute(source);
+        }
+        public Entities.Models.Files.Solution.Solution Execute(Entities.Models.Files.Solution.Solution solution, string updatedName)
+        {
+            return _process.Execute(solution, updatedName);
         }
     }
 }

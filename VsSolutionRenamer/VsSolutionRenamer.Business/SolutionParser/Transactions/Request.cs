@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace VsSolutionRenamer.Business.SolutionParser.Transactions
 {
     internal class Request
     {
+        // Solution File Parser
         internal Entities.Models.Files.Solution.Solution Execute(string source)
         {
             //Determine working directory
@@ -136,6 +133,22 @@ namespace VsSolutionRenamer.Business.SolutionParser.Transactions
             data.global = globals;
             
             return (data);
+        }
+        // Solution File Updater
+        internal Entities.Models.Files.Solution.Solution Execute(Entities.Models.Files.Solution.Solution solution, string updatedName)
+        {
+            solution.updatedSolutionName = updatedName;
+            solution.updatedFolderLocation = solution.folderLocation.Replace(solution.solutionName, updatedName);
+            for (int i = 0; i < solution.project.Count; i++)
+            {
+                if (solution.project[i].doesFolderExist)
+                {
+                    solution.project[i].updatedProjectName = solution.project[i].projectName.Replace(solution.solutionName, updatedName);
+                    solution.project[i].updatedProjectLocation = solution.project[i].projectLocation.Replace(solution.solutionName, updatedName);
+                    solution.project[i].updatedProjectData = $"{solution.project[i].assignedGuid.Trim()} = \"{solution.project[i].updatedProjectName}\", \"{solution.project[i].updatedProjectLocation}\", \"{solution.project[i].projectGuid}\"\r\n{solution.project[i].projectDataEnd}";
+                }
+            }
+            return solution;
         }
     }
 }

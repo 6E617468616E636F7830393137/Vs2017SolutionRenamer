@@ -44,10 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GatheringFiles\IProcess.cs" />
-    <Compile Include="GatheringFiles\Transaction.cs" />
-    <Compile Include="GatheringFiles\Process.cs" />
-    <Compile Include="GatheringFiles\Transactions\Request.cs" />
     <Compile Include="ProjectUpdater\XmlParser\IProcess.cs" />
     <Compile Include="ProjectUpdater\XmlParser\Process.cs" />
     <Compile Include="ProjectUpdater\XmlParser\Transaction.cs" />
@@ -79,6 +75,9 @@
       <Project>{f9ef8f32-8619-41a3-b040-f473f9e256e1}</Project>
       <Name>VsSolutionRenamer.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SolutionUpdater\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

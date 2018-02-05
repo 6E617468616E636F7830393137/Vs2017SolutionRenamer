@@ -22,19 +22,9 @@ namespace VsSolutionRenamer.Tests.SolutionReader
 
             Console.WriteLine($"Folder selected : {source}");
             Log.Info($"Folder selected : {source}");
-            // Take source directory and identify SLN files
-            //var fileCollection = new Business.GatheringFiles.Process(new Business.GatheringFiles.Transaction.GatherFiles()).Execute(source);
+            
             string solutionFile = source.FullName;
-            // Display file(s)
-            //foreach (var file in fileCollection)
-            //{
-            //    Console.WriteLine($"Filename : {file.FullName}");
-            //    if (file.Extension.ToUpper().EndsWith("SLN"))
-            //    {
-            //        solutionFile = file.FullName;
-            //    }
-            //}
-
+            
             if (!solutionFile.Equals(""))
             {
                 var parsedSolution = new Business.SolutionParser.Process(new Business.SolutionParser.Transaction.ParseSolution()).Execute(solutionFile);
@@ -70,17 +60,7 @@ namespace VsSolutionRenamer.Tests.SolutionReader
                 {
                     projects[i] = new Business.ProjectUpdater.XmlParser.Process(new Business.ProjectUpdater.XmlParser.Transaction.ParseProject()).Execute(projects[i], solution.solutionName, updatedName);
                 }
-                solution.updatedSolutionName = updatedName;
-                solution.updatedFolderLocation = solution.folderLocation.Replace(solution.solutionName, updatedName);
-                for (int i = 0; i < solution.project.Count; i++)
-                {
-                    if (solution.project[i].doesFolderExist)
-                    {
-                        solution.project[i].updatedProjectName = solution.project[i].projectName.Replace(solution.solutionName, updatedName);
-                        solution.project[i].updatedProjectLocation = solution.project[i].projectLocation.Replace(solution.solutionName, updatedName);
-                        solution.project[i].updatedProjectData = $"{solution.project[i].assignedGuid.Trim()} = \"{solution.project[i].updatedProjectName}\", \"{solution.project[i].updatedProjectLocation}\", \"{solution.project[i].projectGuid}\"\r\n{solution.project[i].projectDataEnd}";
-                    }
-                }
+                solution = new Business.SolutionParser.Process(new Business.SolutionParser.Transaction.ParseSolution()).Execute(solution, updatedName);
 
                 /* Solution Updater File Save */
                 using (StreamWriter solutionOutput = new StreamWriter($"{solution.folderLocation}\\{solution.solutionName}.sln"))
