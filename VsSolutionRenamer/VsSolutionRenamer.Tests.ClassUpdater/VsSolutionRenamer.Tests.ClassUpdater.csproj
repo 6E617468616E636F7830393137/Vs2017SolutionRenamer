@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D586A094-3C58-4D09-ACA8-5A7BB3E31218}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VsSolutionRenamer.Business</RootNamespace>
-    <AssemblyName>VsSolutionRenamer.Business</AssemblyName>
+    <ProjectGuid>{A2EF233D-5582-4447-AF26-60170DCF2FCD}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>VsSolutionRenamer.Tests.ClassUpdater</RootNamespace>
+    <AssemblyName>VsSolutionRenamer.Tests.ClassUpdater</AssemblyName>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -34,8 +36,8 @@
       <HintPath>..\VsSolutionRenamer.Assemblies\Log4net.Helper.Logging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,46 +46,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ClassUpdater\IProcess.cs" />
-    <Compile Include="ClassUpdater\Process.cs" />
-    <Compile Include="ClassUpdater\Transaction.cs" />
-    <Compile Include="ClassUpdater\Transactions\Request.cs" />
-    <Compile Include="ProjectUpdater\XmlParser\IProcess.cs" />
-    <Compile Include="ProjectUpdater\XmlParser\Process.cs" />
-    <Compile Include="ProjectUpdater\XmlParser\Transaction.cs" />
-    <Compile Include="ProjectUpdater\XmlParser\Transactions\Request.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SelectFolderDialog\ISelectFolderDialog.cs" />
-    <Compile Include="SelectFolderDialog\SelectFolderDialog.cs" />
-    <Compile Include="SelectFolderDialog\Transaction.cs" />
-    <Compile Include="SelectFolderDialog\Transactions\SelectFolderDialog.cs" />
-    <Compile Include="SolutionBackup\IProcess.cs" />
-    <Compile Include="SolutionBackup\Process.cs" />
-    <Compile Include="SolutionBackup\Transaction.cs" />
-    <Compile Include="SolutionBackup\Transactions\Request.cs" />
-    <Compile Include="SolutionParser\IProcess.cs" />
-    <Compile Include="SolutionParser\Process.cs" />
-    <Compile Include="SolutionParser\Transaction.cs" />
-    <Compile Include="SolutionParser\Transactions\Request.cs" />
-    <Compile Include="SolutionUpdater\IProcess.cs" />
-    <Compile Include="SolutionUpdater\Process.cs" />
-    <Compile Include="SolutionUpdater\Transaction.cs" />
-    <Compile Include="SolutionUpdater\Transactions\Request.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VsSolutionRenamer.Data\VsSolutionRenamer.Data.csproj">
-      <Project>{57c00bdc-27d1-47c0-a60c-611bfb611a4d}</Project>
-      <Name>VsSolutionRenamer.Data</Name>
+    <None Include="App.config" />
+    <None Include="log4net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VsSolutionRenamer.Business\VsSolutionRenamer.Business.csproj">
+      <Project>{d586a094-3c58-4d09-aca8-5a7bb3e31218}</Project>
+      <Name>VsSolutionRenamer.Business</Name>
     </ProjectReference>
     <ProjectReference Include="..\VsSolutionRenamer.Entities\VsSolutionRenamer.Entities.csproj">
       <Project>{631f0cae-4ce8-49a7-9d9c-e3069957fc2d}</Project>
       <Name>VsSolutionRenamer.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\VsSolutionRenamer.Services\VsSolutionRenamer.Services.csproj">
-      <Project>{f9ef8f32-8619-41a3-b040-f473f9e256e1}</Project>
-      <Name>VsSolutionRenamer.Services</Name>
-    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
