@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.IO;
 using Log = Log4net.Helper.Logging.Logger;
 
@@ -6,7 +7,7 @@ namespace VsSolutionRenamer.Business.ClassUpdater.Transactions
 {
     internal class Request
     {
-        internal bool ExecuteUpdater(string [] filenames, string originalNamespace, string updatedNameSpace)
+        internal bool ExecuteUpdater(ArrayList filenames, string originalNamespace, string updatedNameSpace)
         {
             foreach (string filename in filenames)
             {

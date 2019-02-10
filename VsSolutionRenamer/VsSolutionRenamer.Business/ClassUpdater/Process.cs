@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 namespace VsSolutionRenamer.Business.ClassUpdater
@@ -13,7 +14,7 @@ namespace VsSolutionRenamer.Business.ClassUpdater
             _process = concreteImplementation;
         }
         // Implementation
-        public bool ExecuteClassUpdater(string[] filenames, string originalNamespace, string updatedNameSpace)
+        public bool ExecuteClassUpdater(ArrayList filenames, string originalNamespace, string updatedNameSpace)
         {
             return _process.ExecuteClassUpdater(filenames, originalNamespace, updatedNameSpace);
         }

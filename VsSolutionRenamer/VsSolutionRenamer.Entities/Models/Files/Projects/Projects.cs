@@ -14,6 +14,5 @@ namespace VsSolutionRenamer.Entities.Models.Files.Projects
         public string assemblyName { get; set; }
         public string newRootNamespace { get; set; }
         public string newAssemblyName { get; set; }
-
     }
 }

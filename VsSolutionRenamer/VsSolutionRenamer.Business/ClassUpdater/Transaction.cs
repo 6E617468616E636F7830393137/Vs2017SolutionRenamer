@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace VsSolutionRenamer.Business.ClassUpdater
     {
         public class ParseClasses : IProcess
         {
-            public bool ExecuteClassUpdater(string[] filenames, string originalNamespace, string updatedNameSpace)
+            public bool ExecuteClassUpdater(ArrayList filenames, string originalNamespace, string updatedNameSpace)
             {
                 return new Transactions.Request().ExecuteUpdater(filenames, originalNamespace, updatedNameSpace);
             }

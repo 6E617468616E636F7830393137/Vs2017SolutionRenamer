@@ -44,6 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyUpdater\IProcess.cs" />
+    <Compile Include="AssemblyUpdater\Process.cs" />
+    <Compile Include="AssemblyUpdater\Transaction.cs" />
+    <Compile Include="AssemblyUpdater\Transactions\Request.cs" />
     <Compile Include="ClassUpdater\IProcess.cs" />
     <Compile Include="ClassUpdater\Process.cs" />
     <Compile Include="ClassUpdater\Transaction.cs" />
@@ -61,6 +65,10 @@
     <Compile Include="SolutionBackup\Process.cs" />
     <Compile Include="SolutionBackup\Transaction.cs" />
     <Compile Include="SolutionBackup\Transactions\Request.cs" />
+    <Compile Include="SolutionBuildRemover\IProcess.cs" />
+    <Compile Include="SolutionBuildRemover\Process.cs" />
+    <Compile Include="SolutionBuildRemover\Transaction.cs" />
+    <Compile Include="SolutionBuildRemover\Transactions\Request.cs" />
     <Compile Include="SolutionParser\IProcess.cs" />
     <Compile Include="SolutionParser\Process.cs" />
     <Compile Include="SolutionParser\Transaction.cs" />

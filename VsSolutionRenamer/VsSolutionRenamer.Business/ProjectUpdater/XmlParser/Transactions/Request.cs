@@ -41,7 +41,15 @@ namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
             {
                 elemList[0].InnerText = elemList[0].InnerText.Replace(originalNamespace, updatedNamespaceAssemblyName);
             }
-            XmlNodeList nodes = xmlDoc.GetElementsByTagName("ProjectReference");
+            XmlNodeList nodes = xmlDoc.GetElementsByTagName("HintPath");
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                if (nodes[i].InnerXml.Contains(originalNamespace))
+                {
+                    nodes[i].InnerXml = nodes[i].InnerXml.Replace(originalNamespace, updatedNamespaceAssemblyName);
+                }
+            }
+            nodes = xmlDoc.GetElementsByTagName("ProjectReference");
             for (int i = 0; i < nodes.Count; i++)
             {
                 nodes[i].Attributes["Include"].Value = nodes[i].Attributes["Include"].Value.Replace(originalNamespace, updatedNamespaceAssemblyName);

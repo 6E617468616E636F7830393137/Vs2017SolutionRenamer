@@ -34,6 +34,14 @@ namespace VsSolutionRenamer.Business.SolutionUpdater.Transactions
                             // Checking for end of project section
                             if (!projectSectionString.isEndOfProjectSection)
                             {
+                                if (projectSectionString.filename.Contains(solution.solutionName))
+                                {
+                                    projectSectionString.filename = projectSectionString.filename.Replace(solution.solutionName, solution.updatedSolutionName);
+                                }
+                                if (projectSectionString.equalsFilename.Contains(solution.solutionName))
+                                {
+                                    projectSectionString.equalsFilename = projectSectionString.equalsFilename.Replace(solution.solutionName, solution.updatedSolutionName);
+                                }
                                 solutionOutput.WriteLine($"{projectSectionString.filename}={projectSectionString.equalsFilename}");
                             }
                             else

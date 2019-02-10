@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Models\FileSelect\FileSelect.cs" />
     <Compile Include="Models\Files\Projects\Projects.cs" />
+    <Compile Include="Models\Files\Projects\ProjectSection.cs" />
     <Compile Include="Models\Files\Solution\Global.cs" />
     <Compile Include="Models\Files\Solution\Header.cs" />
     <Compile Include="Models\Files\Solution\Project.cs" />
