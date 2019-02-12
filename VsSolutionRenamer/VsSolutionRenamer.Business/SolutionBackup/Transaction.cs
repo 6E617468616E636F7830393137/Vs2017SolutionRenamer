@@ -8,6 +8,10 @@
             {
                 return new Transactions.Request().Execute(source);
             }
+            public string Execute(string sourceDirectory)
+            {
+                return new Transactions.Request().Execute(sourceDirectory);
+            }
         }
     }
 }

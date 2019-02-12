@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Log4net.Helper.Logging;
+using System;
 using System.IO;
 using System.Text;
 
@@ -33,7 +34,32 @@ namespace VsSolutionRenamer.Business.SolutionBackup.Transactions
             //solution.project[0].projectLocation;
             return true;
         }
-        //helper internal method --> Called from Execute method
+        // Complete backup of solution
+        internal string Execute(string sourceDirectory)
+        {
+            string [] files = Directory.GetFiles(sourceDirectory, "*.*", SearchOption.AllDirectories);
+            string[] tempDirectory = sourceDirectory.Split('\\');
+            string bufferDirectory = $"{Path.GetTempPath()}SolutionRenamer\\{tempDirectory[tempDirectory.Length - 1]}";
+            // Creates Unique directory
+            Directory.CreateDirectory(bufferDirectory);
+            //Now Create all of the directories
+            foreach (string dirPath in Directory.GetDirectories(sourceDirectory, "*",
+                SearchOption.AllDirectories))
+                Directory.CreateDirectory(dirPath.Replace(sourceDirectory, bufferDirectory));
+            //Copy all the files & Replaces any files with the same name
+            foreach (string newPath in Directory.GetFiles(sourceDirectory, "*.*",
+                SearchOption.AllDirectories))
+                try
+                {
+                    File.Copy(newPath, newPath.Replace(sourceDirectory, bufferDirectory), true);
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error($"ERROR COPYING FILE : {ex}");
+                }
+            return bufferDirectory;
+        }
+        // Helper internal method --> Called from Execute method
         internal void Copy(string inputFIlePath, string outputFilePath)
         {
             int i;            

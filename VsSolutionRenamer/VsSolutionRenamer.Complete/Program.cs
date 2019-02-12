@@ -20,8 +20,13 @@ namespace VsSolutionRenamer.Complete
             // Open file dialog to select solution folder
             var select = new Entities.Models.FileSelect.FileSelect();
             var source = select.FileSelector();
+            // Copy selected project to renamed new temp project
+            var tempDirectory = new Business.SolutionBackup.Process(new Business.SolutionBackup.Transaction.BackupSolution()).Execute(source.DirectoryName);
+            // Change source
+            solution.finalUpdatedFolderLocation = source.DirectoryName;
+            solution.folderLocation = tempDirectory;
             solution.solutionName = source.Name.Replace(source.Extension, string.Empty);
-            solution.folderLocation = source.DirectoryName;
+            
             // Output
             Console.WriteLine($"Folder selected : {source}");
             Log.Info($"Folder selected : {source}");
@@ -79,12 +84,11 @@ namespace VsSolutionRenamer.Complete
             // Input new namespace
             Console.WriteLine($"Current Solution Name : {solution.solutionName}");
             Console.Write($"Enter new name : ");
-            var updatedName = Console.ReadLine();
-            //Backup Files
+            var updatedName = Console.ReadLine();            
+            // Backup Files
             // TODO extend to include CS files
-            var isBackupSuccess = new Business.SolutionBackup.Process(new Business.SolutionBackup.Transaction.BackupSolution()).Execute(solution);
-            if (isBackupSuccess)
-            {
+            // var isBackupSuccess = new Business.SolutionBackup.Process(new Business.SolutionBackup.Transaction.BackupSolution()).Execute(solution);
+            
                 // File Types
                 string filter = ConfigurationManager.AppSettings["findFileExtensions"];
                 // Search for multiple file types
@@ -120,7 +124,7 @@ namespace VsSolutionRenamer.Complete
                     {
                         new Business.AssemblyUpdater.Process(new Business.AssemblyUpdater.Transaction.UpdateAssemblies()).ExecuteAssemblyUpdater(proSection, solution.solutionName, updatedName);
                     }
-
+                    Directory.Move(solution.updatedFolderLocation, solution.finalUpdatedFolderLocation);
                 }
                 else
                 {
@@ -128,9 +132,7 @@ namespace VsSolutionRenamer.Complete
                 }           
 
             Console.WriteLine("Press any key to continue...");
-            Console.ReadKey();
-
-            } // Closes if
+            Console.ReadKey();            
         }
     }
 }

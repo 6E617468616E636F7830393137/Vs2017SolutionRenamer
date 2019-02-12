@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Xml;
 
 namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
@@ -76,6 +77,12 @@ namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
                     }
                 }
                 
+            }
+            nodes = xmlDoc.GetElementsByTagName("IISUrl");
+            for (int i = 0; i < nodes.Count; i++)
+            {
+                Random generator = new Random();                
+                nodes[i].InnerXml = $"http://localhost:{generator.Next(10000, 60000)}";
             }
             xmlDoc.Save(data.fileName);
             if (File.Exists($"{data.fileName}.user"))

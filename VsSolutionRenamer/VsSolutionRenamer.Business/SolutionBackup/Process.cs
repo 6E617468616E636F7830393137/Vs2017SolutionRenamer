@@ -14,5 +14,9 @@
         {
             return _process.Execute(source);
         }
+        public string Execute(string sourceDirectory)
+        {
+            return _process.Execute(sourceDirectory);
+        }
     }
 }

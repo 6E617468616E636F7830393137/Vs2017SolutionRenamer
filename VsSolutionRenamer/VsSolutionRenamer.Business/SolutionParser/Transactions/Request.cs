@@ -139,6 +139,7 @@ namespace VsSolutionRenamer.Business.SolutionParser.Transactions
         {
             solution.updatedSolutionName = updatedName;
             solution.updatedFolderLocation = solution.folderLocation.Replace(solution.solutionName, updatedName);
+            solution.finalUpdatedFolderLocation = solution.finalUpdatedFolderLocation.Replace(solution.solutionName, updatedName);
             for (int i = 0; i < solution.project.Count; i++)
             {
                 if (solution.project[i].doesFolderExist)

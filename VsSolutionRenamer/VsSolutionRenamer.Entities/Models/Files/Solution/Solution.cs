@@ -6,6 +6,8 @@ namespace VsSolutionRenamer.Entities.Models.Files.Solution
     {
         public string folderLocation { get; set; }
         public string updatedFolderLocation { get; set; }
+        public string finalFolderLocation { get; set; }
+        public string finalUpdatedFolderLocation { get; set; }
         public string solutionName { get; set; }
         public string updatedSolutionName { get; set; }
         public Header header { get; set; }
