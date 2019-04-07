@@ -124,7 +124,9 @@ namespace VsSolutionRenamer.Complete
                     {
                         new Business.AssemblyUpdater.Process(new Business.AssemblyUpdater.Transaction.UpdateAssemblies()).ExecuteAssemblyUpdater(proSection, solution.solutionName, updatedName);
                     }
-                    Directory.Move(solution.updatedFolderLocation, solution.finalUpdatedFolderLocation);
+                // Directory.Move(solution.updatedFolderLocation, solution.finalUpdatedFolderLocation);
+                FileCopyLibrary.Bll.FileCopyLibrary.IFileManager fileManager = new FileCopyLibrary.Bll.FileCopyLibrary.FileManager(); 
+                fileManager.MoveFolder(solution.updatedFolderLocation, solution.finalUpdatedFolderLocation);
                 }
                 else
                 {

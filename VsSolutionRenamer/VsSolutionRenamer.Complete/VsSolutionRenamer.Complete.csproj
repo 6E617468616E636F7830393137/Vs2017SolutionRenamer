@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FileCopyLibrary.Bll">
+      <HintPath>..\VsSolutionRenamer.Assemblies\FileCopyLibrary.Bll.dll</HintPath>
+    </Reference>
     <Reference Include="Log4net.Helper.Logging">
       <HintPath>..\VsSolutionRenamer.Assemblies\Log4net.Helper.Logging.dll</HintPath>
     </Reference>

@@ -4,6 +4,9 @@ using System.Xml;
 
 namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
 {
+    /// <summary>
+    /// Takes Project object and reads and updates content
+    /// </summary>
     internal class Request
     {
         internal Entities.Models.Files.Projects.Projects ExecuteReadNodes(Entities.Models.Files.Projects.Projects data)
@@ -77,6 +80,11 @@ namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
                     }
                 }
                 
+            }
+            nodes = xmlDoc.GetElementsByTagName("DocumentationFile");
+            if (elemList != null)
+            {
+                elemList[0].InnerText = elemList[0].InnerText.Replace(originalNamespace, updatedNamespaceAssemblyName);
             }
             nodes = xmlDoc.GetElementsByTagName("IISUrl");
             for (int i = 0; i < nodes.Count; i++)

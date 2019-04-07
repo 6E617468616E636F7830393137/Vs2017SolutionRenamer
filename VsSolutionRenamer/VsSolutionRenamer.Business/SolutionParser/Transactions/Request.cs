@@ -6,7 +6,11 @@ namespace VsSolutionRenamer.Business.SolutionParser.Transactions
 {
     internal class Request
     {
-        // Solution File Parser
+        /// <summary>
+        /// Solution File Parser
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
         internal Entities.Models.Files.Solution.Solution Execute(string source)
         {
             //Determine working directory

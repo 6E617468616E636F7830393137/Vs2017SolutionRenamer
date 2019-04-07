@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-Entities", "00-Entities"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-Assemblies", "00-Assemblies", "{CBDC6622-4283-4030-AEE8-775A7BAB9F8D}"
 	ProjectSection(SolutionItems) = preProject
+		VsSolutionRenamer.Assemblies\FileCopyLibrary.Bll.dll = VsSolutionRenamer.Assemblies\FileCopyLibrary.Bll.dll
 		VsSolutionRenamer.Assemblies\Log4net.Helper.Logging.dll = VsSolutionRenamer.Assemblies\Log4net.Helper.Logging.dll
 	EndProjectSection
 EndProject
