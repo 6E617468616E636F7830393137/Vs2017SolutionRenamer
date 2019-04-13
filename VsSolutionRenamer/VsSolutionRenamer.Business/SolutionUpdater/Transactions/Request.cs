@@ -77,7 +77,9 @@ namespace VsSolutionRenamer.Business.SolutionUpdater.Transactions
             try
             {
                 Log.Info($": : : : : Moving Directory to Updated location : {solution.solutionName}.sln  : : : : :");
-                Directory.Move($"{solution.folderLocation}", $"{solution.updatedFolderLocation}");
+                //Directory.Move($"{solution.folderLocation}", $"{solution.updatedFolderLocation}");
+                FileCopyLibrary.Bll.FileCopyLibrary.IFileManager fileManager = new FileCopyLibrary.Bll.FileCopyLibrary.FileManager();
+                fileManager.MoveFolder($"{solution.folderLocation}", $"{solution.updatedFolderLocation}");
                 Log.Info($": : : : : Renaming Solution filename : {solution.solutionName}.sln to {solution.updatedSolutionName}.sln : : : : :");
                 // Check if File exists and delete if it does
                 if (File.Exists($"{solution.updatedFolderLocation}\\{solution.updatedSolutionName}.sln"))
@@ -85,7 +87,9 @@ namespace VsSolutionRenamer.Business.SolutionUpdater.Transactions
                     File.Delete($"{solution.updatedFolderLocation}\\{solution.updatedSolutionName}.sln");
                 }
                 // Move file to new location
-                File.Move($"{solution.updatedFolderLocation}\\{solution.solutionName}.sln", $"{solution.updatedFolderLocation}\\{solution.updatedSolutionName}.sln");
+                //File.Move($"{solution.updatedFolderLocation}\\{solution.solutionName}.sln", $"{solution.updatedFolderLocation}\\{solution.updatedSolutionName}.sln");
+                fileManager.Copy($"{solution.updatedFolderLocation}\\{solution.solutionName}.sln", $"{solution.updatedFolderLocation}\\{solution.updatedSolutionName}.sln");
+                File.Delete($"{solution.updatedFolderLocation}\\{solution.solutionName}.sln");
             }
             catch (Exception ex)
             {

@@ -81,8 +81,8 @@ namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
                 }
                 
             }
-            nodes = xmlDoc.GetElementsByTagName("DocumentationFile");
-            if (elemList != null)
+            elemList = xmlDoc.GetElementsByTagName("DocumentationFile");
+            if (elemList.Count > 0)
             {
                 elemList[0].InnerText = elemList[0].InnerText.Replace(originalNamespace, updatedNamespaceAssemblyName);
             }
@@ -105,13 +105,13 @@ namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
             {
                 File.Delete($"{fileInfo.Directory}\\{newFilename}");
             }
-            File.Move(data.fileName, $"{fileInfo.Directory}\\{newFilename}");
-            Directory.Move(fileInfo.DirectoryName, newFoldername);
-            //xmlDoc.Save($"{fileInfo.Directory}\\{newFilename}");
-            //foreach (XmlNode nodeProjectReference in nodes)
-            //{
-            //    nodeProjectReference.SelectSingleNode();
-            //}
+            //File.Move(data.fileName, $"{fileInfo.Directory}\\{newFilename}");
+            //Directory.Move(fileInfo.DirectoryName, newFoldername);
+            FileCopyLibrary.Bll.FileCopyLibrary.IFileManager fileManager = new FileCopyLibrary.Bll.FileCopyLibrary.FileManager();
+            fileManager.Copy(data.fileName, $"{fileInfo.Directory}\\{newFilename}");
+            File.Delete(data.fileName);
+            fileManager.MoveFolder(fileInfo.DirectoryName, newFoldername);
+
             return data;
         }
     }

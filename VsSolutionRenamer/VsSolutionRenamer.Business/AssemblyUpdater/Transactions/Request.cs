@@ -17,7 +17,9 @@ namespace VsSolutionRenamer.Business.AssemblyUpdater.Transactions
             
             if (!Directory.Exists(updatedDirectoryName))
             {
-                Directory.Move($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", $"{updatedDirectoryName}");
+                //Directory.Move($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", $"{updatedDirectoryName}");
+                FileCopyLibrary.Bll.FileCopyLibrary.IFileManager fileManager = new FileCopyLibrary.Bll.FileCopyLibrary.FileManager();
+                fileManager.MoveFolder($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", $"{updatedDirectoryName}");
             }
             // Copy files to new directory
             
