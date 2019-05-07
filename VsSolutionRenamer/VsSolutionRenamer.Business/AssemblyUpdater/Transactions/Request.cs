@@ -10,19 +10,21 @@ namespace VsSolutionRenamer.Business.AssemblyUpdater.Transactions
         {
             string rootDirectoryName = projectSection.currentFolder.Replace(originalName, updatedName);
             // Get Files in Directory
-            List<string> filenames = new List<string>();
-            filenames.AddRange(Directory.GetFiles($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", "*.*", SearchOption.AllDirectories));
-            // Create Directory
-            string updatedDirectoryName = $"{new FileInfo($"{projectSection.currentFolder}\\{projectSection.filename}").DirectoryName}".Replace(originalName, updatedName);
-            
-            if (!Directory.Exists(updatedDirectoryName))
+            if (Directory.Exists($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}"))
             {
-                //Directory.Move($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", $"{updatedDirectoryName}");
-                FileCopyLibrary.Bll.FileCopyLibrary.IFileManager fileManager = new FileCopyLibrary.Bll.FileCopyLibrary.FileManager();
-                fileManager.MoveFolder($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", $"{updatedDirectoryName}");
+                List<string> filenames = new List<string>();
+                filenames.AddRange(Directory.GetFiles($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", "*.*", SearchOption.AllDirectories));
+                // Create Directory
+                string updatedDirectoryName = $"{new FileInfo($"{projectSection.currentFolder}\\{projectSection.filename}").DirectoryName}".Replace(originalName, updatedName);
+
+                if (!Directory.Exists(updatedDirectoryName))
+                {
+                    //Directory.Move($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", $"{updatedDirectoryName}");
+                    FileCopyLibrary.Bll.FileCopyLibrary.IFileManager fileManager = new FileCopyLibrary.Bll.FileCopyLibrary.FileManager();
+                    fileManager.MoveFolder($"{new FileInfo($"{rootDirectoryName}\\{projectSection.filename}").DirectoryName}", $"{updatedDirectoryName}");
+                }
+                // Copy files to new directory
             }
-            // Copy files to new directory
-            
             return true;
         }
         //helper internal method --> Called from Execute method

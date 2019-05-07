@@ -1,6 +1,7 @@
 ﻿using Log4net.Helper.Logging;
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace VsSolutionRenamer.Business.SolutionBackup.Transactions
@@ -36,28 +37,39 @@ namespace VsSolutionRenamer.Business.SolutionBackup.Transactions
         }
         // Complete backup of solution
         internal string Execute(string sourceDirectory)
-        {
-            string [] files = Directory.GetFiles(sourceDirectory, "*.*", SearchOption.AllDirectories);
+        {                       
             string[] tempDirectory = sourceDirectory.Split('\\');
             string bufferDirectory = $"{Path.GetTempPath()}SolutionRenamer\\{tempDirectory[tempDirectory.Length - 1]}";
             // Creates Unique directory
             Directory.CreateDirectory(bufferDirectory);
             //Now Create all of the directories
-            foreach (string dirPath in Directory.GetDirectories(sourceDirectory, "*",
-                SearchOption.AllDirectories))
-                Directory.CreateDirectory(dirPath.Replace(sourceDirectory, bufferDirectory));
+            string[] folders = Directory.GetDirectories(sourceDirectory, "*",
+                SearchOption.AllDirectories);
+            folders = folders.Where(p => !p.Contains(".git")).ToArray();
+            folders = folders.Where(p => !p.Contains("TestResults")).ToArray();
+            foreach (string dirPath in folders)
+            {                
+                    Directory.CreateDirectory(dirPath.Replace(sourceDirectory, bufferDirectory));
+             
+            }
+            string[] files = Directory.GetFiles(sourceDirectory, "*.*",
+                SearchOption.AllDirectories);
+            files = files.Where(p => !p.Contains(".git")).ToArray();
+            files = files.Where(p => !p.Contains("TestResults")).ToArray();
             //Copy all the files & Replaces any files with the same name
-            foreach (string newPath in Directory.GetFiles(sourceDirectory, "*.*",
-                SearchOption.AllDirectories))
+            foreach (string newPath in files)
                 try
                 {
+                    
                     File.Copy(newPath, newPath.Replace(sourceDirectory, bufferDirectory), true);
+                    
                 }
                 catch (Exception ex)
                 {
                     Logger.Error($"ERROR COPYING FILE : {ex}");
                 }
             return bufferDirectory;
+
         }
         // Helper internal method --> Called from Execute method
         internal void Copy(string inputFIlePath, string outputFilePath)

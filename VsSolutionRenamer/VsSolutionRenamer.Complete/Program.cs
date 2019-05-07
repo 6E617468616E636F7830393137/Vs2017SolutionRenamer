@@ -124,9 +124,16 @@ namespace VsSolutionRenamer.Complete
                     {
                         new Business.AssemblyUpdater.Process(new Business.AssemblyUpdater.Transaction.UpdateAssemblies()).ExecuteAssemblyUpdater(proSection, solution.solutionName, updatedName);
                     }
+
+                var folderSelect = new Entities.Models.FolderSelect.FolderSelectDialog();
+                folderSelect.ShowDialog();
                 // Directory.Move(solution.updatedFolderLocation, solution.finalUpdatedFolderLocation);
-                FileCopyLibrary.Bll.FileCopyLibrary.IFileManager fileManager = new FileCopyLibrary.Bll.FileCopyLibrary.FileManager(); 
-                fileManager.MoveFolder(solution.updatedFolderLocation, solution.finalUpdatedFolderLocation);
+                FileCopyLibrary.Bll.FileCopyLibrary.IFileManager fileManager = new FileCopyLibrary.Bll.FileCopyLibrary.FileManager();
+                if (!Directory.Exists($"{folderSelect.FileName}\\{updatedName}"))
+                {
+                    Directory.CreateDirectory($"{folderSelect.FileName}\\{updatedName}");
+                }
+                fileManager.MoveFolder(solution.updatedFolderLocation, $"{folderSelect.FileName}\\{updatedName}");
                 }
                 else
                 {
