@@ -15,12 +15,12 @@ namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
             xmlDoc.Load(data.fileName);
 
             XmlNodeList elemList = xmlDoc.GetElementsByTagName("RootNamespace");
-            if (elemList != null)
+            if (elemList != null && elemList.Count > 0)
             {
                 data.rootNamespace = elemList[0].InnerText;
             }
             elemList = xmlDoc.GetElementsByTagName("AssemblyName");
-            if (elemList != null)
+            if (elemList != null && elemList.Count > 0)
             {
                 data.assemblyName = elemList[0].InnerText;
             }            
@@ -36,12 +36,12 @@ namespace VsSolutionRenamer.Business.ProjectUpdater.XmlParser.Transactions
             var newFoldername = fileInfo.DirectoryName.Remove(place, originalNamespace.Length).Insert(place, updatedNamespaceAssemblyName);//fileInfo.DirectoryName.Replace(originalNamespace, updatedNamespaceAssemblyName);
             var newFilename = fileInfo.Name.Replace(originalNamespace, updatedNamespaceAssemblyName);
             XmlNodeList elemList = xmlDoc.GetElementsByTagName("RootNamespace"); //xmlDoc.SelectSingleNode("Project/PropertyGroup/RootNamespace");
-            if (elemList != null)
+            if (elemList != null && elemList.Count > 0)
             {
                 elemList[0].InnerText = elemList[0].InnerText.Replace(originalNamespace, updatedNamespaceAssemblyName);
             }
             elemList = xmlDoc.GetElementsByTagName("AssemblyName"); //xmlDoc.SelectSingleNode("Project/PropertyGroup/AssemblyName");
-            if (elemList != null)
+            if (elemList != null && elemList.Count > 0)
             {
                 elemList[0].InnerText = elemList[0].InnerText.Replace(originalNamespace, updatedNamespaceAssemblyName);
             }
