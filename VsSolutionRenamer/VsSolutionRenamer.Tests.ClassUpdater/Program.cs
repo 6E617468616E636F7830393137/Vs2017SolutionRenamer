@@ -35,7 +35,7 @@ namespace VsSolutionRenamer.Tests.ClassUpdater
             Console.WriteLine($"Number of CS files : {files.Length}");
             Console.Write($"Enter new namespace : ");
             var updatedName = Console.ReadLine();
-            new Business.ClassUpdater.Process(new Business.ClassUpdater.Transaction.ParseClasses()).ExecuteClassUpdater(files, solution.solutionName, updatedName);
+            new Business.ClassUpdater.Process(new Business.ClassUpdater.Transaction.ParseClasses()).ExecuteClassUpdater(new System.Collections.ArrayList(files), solution.solutionName, updatedName);
         }
     }
 }
